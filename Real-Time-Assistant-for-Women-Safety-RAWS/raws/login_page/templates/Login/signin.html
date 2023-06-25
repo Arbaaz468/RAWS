@@ -1,0 +1,36 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+<head>
+    {% block title %}Login{% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dimissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    <div style="height: 20%; width: 20%; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)); margin: 0px 0px 0px 600px;">
+        <div style="width: 300px; height: 480px; position: relative; margin: 3.45% auto; background: #fff; padding: 5px; overflow: hidden;">
+            <center>
+
+                <h1 style="width: 220px; margin: 35px auto; position: relative; box-shadow: 0 0 20px 9px #ee4b0b1f; border-radius: 30px;">Login</h1>
+                <form action="signin" method="post" style="top: 50px; position: relative; width: 280px; transition: 0.5s;">
+                {% csrf_token %}
+                    <label for="" style="margin: 0px 0px 20px 0px;">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username" required> <br>
+    
+                    <label for="">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Your Password" required> <br>
+                    
+                    <a href="http://127.0.0.1:8000/login_page/signin"><button type="submit" style="width: 85%; padding: 10px 30px; cursor: pointer; display: block; background: linear-gradient(to right, #ff105f, #ffad06); border: 0; outline: none; border-radius: 30px; margin: 50px 0px 0px 0px;"> Login </button></a>
+                </form>
+            </center>
+        </div>
+    </div>
+    {% endblock %}
+</body>

@@ -1,0 +1,35 @@
+{"intents":[
+    {
+        "tag":"greeting",
+        "patterns":["Hi","How are you","IS anyone there?","Hello","Good day"],
+        "responses":["Hello, Thanks fr visiting","Good to see you again","Hi there, how can I help you"],
+        "context_set":""
+    },
+    {
+        "tag":"goodbye",
+        "patterns":["Bye","See you later","Goodbye"],
+        "responses":["See you later,Thanks for visiting","Have a nice day","Bye! come back again soon."]
+    },
+    {
+        "tag":"Thanks",
+        "patterns":["Thanks","Thank you","That's helpful"],
+        "responses":["Happy to help!","Any time!","My pleasure"]
+    },
+    {
+        "tag":"Register",
+        "patterns":["How to register?","How can i get registertion on this site","Where is the sign up page"],
+        "responses":["Go to Registertion button link:","click on this link: ","Sign up page are as button of Registertion link:"]
+    },
+    {
+        "tag":"breif",
+        "patterns":["Tell me about this Web","what was the working of the web","Breif Intro the web","Intro"],
+        "responses":["App info","app brief intro","intro"]
+    },
+    {
+        "tag":"Help",
+        "patterns":["How may i help you!","It's any emergency","May I connect to near by police station!",""],
+        "responses":["Go to Registertion button link:","Want to connect 1012","Want to connect 1091"]
+    }
+]
+
+}

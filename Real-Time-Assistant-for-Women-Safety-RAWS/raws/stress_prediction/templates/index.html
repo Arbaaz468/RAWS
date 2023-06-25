@@ -1,0 +1,480 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stress Prediction</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+
+            body::before{
+                content: "";
+                position: fixed;
+                z-index: -3;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-image: url(s3.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            body{
+                font-family: sans-serif;
+                margin-top: 40px;
+            }
+
+            .stress_pridiction{
+                width: 800px;
+                margin: auto;
+                background-color: rgb(0,0,0.6);
+                color: #FFFFFF;
+                padding: 10px 0px 10px 0px;
+                text-align: center;
+                border-radius: 15px 15px 0px 0px;
+            }
+
+            .main{
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 800px;
+                margin: auto;
+            }
+
+            .form{
+                padding: 10px;
+            }
+
+            /* #name{
+                width: 100%;
+                height: 100px;
+            } */
+
+            .name{
+                margin-left: 25px;
+                margin-top: 30px;
+                width: 550px;
+                color: white;
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            .in{
+                position: relative;
+                left: 510px;
+                top: -37px;
+                line-height: 40px;
+                border-radius: 6px;
+                padding: 0 22px;
+                font-size: 16px;
+            }
+
+            /* .lastname{
+                position: relative;
+                left: 200px;
+                top: -37px;
+                line-height: 40px;
+                border-radius: 6px;
+                padding: 0 22px;
+                font-size: 16px;
+            } */
+
+            .in2{
+                position: relative;
+                left: 5px;
+                line-height: 40px;
+                border-radius: 6px;
+                padding: 0 22px;
+                font-size: 15px;
+            }
+
+            .in3{
+                position: relative;
+                left: 225px;
+                top: -37px;
+                line-height: 40px;
+                width: 532px;
+                border-radius: 6px;
+                padding: 0 22px;
+                font-size: 16px;
+            }
+            .in4{
+                position: relative;
+                left: 225px;
+                top: -37px;
+                height: 40px;
+                margin: 0 0px 0px 285px; 
+                line-height: 40px;
+                width: 240px;
+                border-radius: 6px;
+                padding: 0 22px;
+                font-size: 16px;
+            }
+            .in5{
+                background-color: #3BAF9F;
+                display: block;
+                margin: 20px 0px 0px 20px;
+                text-align: center;
+                border-radius: 12px;
+                border: 2px solid #366473;
+                padding: 14px 110px;
+                outline: none;
+                color: white;
+                cursor: pointer;
+                transition: 0.25px;
+            }
+            .in5:hover{
+                background-color: #5390F5;
+                color: white;
+            }
+            .in6{
+                background-color: #3BAF9F;
+                display: block;
+                margin: -52px 0px 0px 400px;
+                text-align: center;
+                border-radius: 12px;
+                border: 2px solid #366473;
+                padding: 14px 130px;
+                outline: none;
+                color: white;
+                cursor: pointer;
+                transition: 0.25px;
+            }
+            .in6:hover{
+                background-color: #5390F5;
+                color: white;
+            }
+        </style>
+        <link rel="stylesheet" href="{% static 'home/index.css' %}"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- Bootstarp CDN -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+    </head>
+    <body>
+        <navbar class="mynavbar">
+            <div id="logo">
+                <img src="logo.png" alt="">
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="http://127.0.0.1:8000/"><img src="{% static 'home/log.png' %}" width="100" height="50"></a></li>
+                    <li><a href="http://127.0.0.1:8000/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fa fa-wpforms"></i> Articles</Article></a></li>
+                    <li><a href="#"><i class="fa fa-user-md"></i> Doctor Discussion</a></li>
+                    <li><a href="#"><i class="fa fa-edit"></i> Add Story</a></li>
+                    <li class="search_bar">
+                        <div class="box">
+                            <form name="search">
+                                <input type="text" class="input" name="txt" onmouseout="document.search.txt.value = ''">
+                            </form>
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </navbar>
+
+        <div class='stress_pridiction'><h1>Stress Prediction</h1></div>
+        <div class="main">
+            <form action="predict_stress" method="post" style="padding: 10px;">{% csrf_token %}
+                <div id="name">
+                    <!-- <h2 class="name">Name</h2> -->
+                    <label class="name" style="margin-left: 25px; margin-top: 30px; width: 550px;
+                    color: white;
+                    font-size: 18px;
+                    font-weight: 600;">First Name:</label>
+                    <input class="in" type="text" name="fname"><br>
+                    <br>
+                    
+                    <label class="name">Last Name:</label>
+                    <input class="in" type="text" name="lname"><br>
+                    <br>
+
+                    <label for="post_id" class="name">Post ID:</label>
+                    <input class="in" type="text" id="post_id" name="post_id" required><br>
+                    <br>
+
+                    <label for="subreddit" class="name">Subreddit (Problem):</label>
+                    <select name="subreddit" class="in4" required>
+                        <option value=""></option>
+                        <option value="Promotion_problem">Promotion Problem</option>
+                        <option value="anxiety">Anxiety</option>
+                        <option value="relationships">Relationships</option>
+                        <option value="assistance">Assistance</option>
+                        <option value="Financial_problem">Financial problem</option>
+                        <option value="ptsd">Post-traumatic stress disorder (PTSD)</option>
+                        <option value="homeless">Homeless</option>
+                        <option value="AlmostHomeLess">Almost HomeLess</option>
+                        <option value="domesticviolence">Domestic Violence</option>
+                        <option value="survivorsofabuse">Survivors of Abuse</option>
+                        <option value="stress">Stress</option>
+                        <option value="food_pantry">Food Pantry</option>
+                    </select>
+                    <br>
+
+                    <label for="social" class="name">Social Timestamp:</label>
+                    <input class="in" type="text" id="social" name="social" required><br>
+                    <br>
+
+                    <label for="confidence" class="name">Confidence Level (in %):</label>
+                    <input class="in" type="text" id="confidence" name="confidence" required><br>
+                    <br>
+
+                    <label for="social_karnama_time" class="name">Social Karnama Time (in min):</label>
+                    <input class="in" type="text" id="social_karnama_time" name="social_karnama_time" required><br>
+                    <br>
+                </div>
+
+                <label for="question_1"><h3 class="name">Q1) I frequently bring work home at night (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_1" id="question_1" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_2"><h3 class="name">Q2) Not enough hours in the day to do all the things that I must do (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_2" id="question_2" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_3"><h3 class="name"> Q3) I do the jobs myself to ensure they are done properly (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_3" id="question_3" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_4"><h3 class="name"> Q4) I underestimate how long it takes to do things (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_4" id="question_4" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_5"><h3 class="name"> Q5) I feel that there are too many deadlines in my work / life that are difficult to meet (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_5" id="question_5" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_6"><h3 class="name"> Q6) My self confidence / self esteem is lower than I would like it to be (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_6" id="question_6" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_7"><h3 class="name"> Q7) I frequently have guilty feelings if I relax and do nothing (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_7" id="question_7" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_8"><h3 class="name"> Q8) I find myself thinking about problems even when I am supposed to be relaxing (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_8" id="question_8" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_9"><h3 class="name"> Q9) I feel fatigued or tired even when I wake after an adequate sleep (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_9" id="question_9" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_10"><h3 class="name"> Q10) I often 0d or finish other peoples sentences for them when they speak slowly (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_10" id="question_10" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_11"><h3 class="name"> Q11) I have a tendency to eat, talk, walk and drive quickly (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_11" id="question_11" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_12"><h3 class="name"> Q12) My appetite has changed, have either a desire to binge or have a loss of appetite / may skip meals (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_12" id="question_12" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_13"><h3 class="name"> Q13) I feel irritated or angry if the car or traffic in front seems to be going too slowly/ I become very frustrated at having to wait in a queue (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_13" id="question_13" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_14"><h3 class="name"> Q14) If something or someone really anoys me I will bottle up my feelings (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_14" id="question_14" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_15"><h3 class="name"> Q15) When I play sport or games, I really try to win whoever I play (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_15" id="question_15" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_16"><h3 class="name"> Q16) I experience mood swings, difficulty making decisions, concentration and memory is impaired (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_16" id="question_16" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_17"><h3 class="name"> Q17) I find fault and criticize others rather than praising, even if it is deserved (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_17" id="question_17" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_18"><h3 class="name"> Q18) I seem to be listening even though I am preoccupied with my own thoughts (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_18" id="question_18" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_19"><h3 class="name"> Q19) My sex drive is lower, can experience changes to menstrual cycle (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_19" id="question_19" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_20"><h3 class="name"> Q20) I find myself grinding my teeth (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_20" id="question_20" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_21"><h3 class="name"> Q21) Increase in muscular aches and pains especially in the neck, head, lower back, shoulders (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_21" id="question_21" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_22"><h3 class="name"> Q22) I am unable to perform tasks as well as I used to, my judgment is clouded or 0t as good as it was (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_22" id="question_22" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_23"><h3 class="name"> Q23) I find I have a greater dependency on alcohol, caffeine, nicotine or drugs (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_23" id="question_23" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_24"><h3 class="name"> Q24) I deny or ignore problems in the hope that they will go away (Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_24" id="question_24" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="question_25"><h3 class="name"> Q25) I find that I don’t have time for many interests / hobbies outside of work(Give ans in Yes/No):</h3></label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select class="in2" name="question_25" id="question_25" required>
+                    <option disabled="disabled" selected="selected">Choose</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <br>
+
+                <label for="predict_text" class="name"><h3>Text:</h3></label>
+                <input class="in3" type="text" id="predict_text" name="predict_text"><br>
+                <br>
+
+                <!-- <input type="submit" value='Prediction'>
+                <input type="reset" value="Reset"> -->
+                <ul>
+                    <li><input type="submit" class="in5" value='Prediction'></li>
+                    <li><input type="reset" class="in6" value="Reset"></li>
+                </ul>
+                <!--<input type="submit" class="in5" value='Prediction'>
+                <input type="reset" class="in5" value="Reset">-->
+
+            </form>
+            
+        </div>
+        <hr>
+        <footer>
+            <span>@copyright</span>| <span><a href="developers">About Us </a></span> | <span><a href="developers">Chat with Developers </a></span> | <span><a href="contactUs">Contact us</a></span>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+<head>
+    {% block title %}Login{% endblock %}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBINtTDPGB-hw19vy5qgG3JZpToWdqFu8&callback=initMap"></script>
+</head>
+<body>
+    {% block body %}
+    <div style="margin: 0px 0px 0px 1400px;">
+        {{fname}}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dimissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <button type="submit"><a href="http://127.0.0.1:8000/login_page/signout">SignOut</a></button>
+        {% endif %}
+    </div>
+    <div class="">
+        <div id="secPre">
+            <div>
+                <ul>
+                    <li class="menu_btn"><a href="http://127.0.0.1:8000/stress_prediction/"><i class="fa  fa-dice-six"></i> Stress Pridiction</a></li>
+                    <li class="menu_btn"><a href="http://127.0.0.1:8000/login_page/location"> Click for share loctaion</a></li>
+                    <li class="menu_btn"><a href="http://127.0.0.1:8000/stress_prediction/"><i class="fa  fa-dice-six"></i> Add Contact</a></li>
+                </ul>
+            </div>
+            <div id="predictor">
+                <div style="width: 30%;">
+                    <ul style="list-style: none;">
+                        <li class="menu_btn"><a href="index.html"><i class="fa  fa-dice-six"></i> Near by Police and NGO</a></li>
+                        <br><br>
+                        <li class="menu_btn"><a href="#"><i class="fa fa-registration"></i>Chat bot</a></li>
+                    </ul>
+                </div>
+                <div class="element element-2" id="stress_Graph" style="width: 69%; background-color: bisque;">
+                <h1>Why you have to Check Your Stress Level?</h1>
+                <p>
+                    We live in an era where there is a surplus of information flowing in every second. Sometimes this leads to stress. ☹️
+Too much stress can negatively impact our health and may lead to headaches, high blood pressure, heart problems, diabetes, skin conditions, asthma, arthritis, depression, and anxiety.
+                </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="margin: 80px 0px 0px 0px;">
+    {% endblock %}
+</body>
